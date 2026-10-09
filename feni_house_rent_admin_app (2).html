@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feni House Rent - বাসা ভাড়া ও সিকিউর ড্যাশবোর্ড</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Hind Siliguri & Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0B2545',
+                            navyDark: '#07182D',
+                            navyLight: '#134074',
+                            green: '#10B981',
+                            greenHover: '#059669',
+                            bkash: '#D12053',
+                            gold: '#F59E0B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Hind Siliguri', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Hind Siliguri', 'Inter', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(11, 37, 69, 0.85), rgba(11, 37, 69, 0.90)), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+        .blur-locked {
+            filter: blur(5px);
+            user-select: none;
+            pointer-events: none;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10B981;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" onclick="switchView('public')" class="flex items-center gap-3 group">
+                    <div class="bg-brand-navy p-2.5 rounded-xl text-brand-green group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-house-chimney text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1">
+                            <span class="text-2xl font-extrabold text-brand-navy tracking-tight">Feni</span>
+                            <span class="text-2xl font-extrabold text-brand-green">House rent</span>
+                        </div>
+                        <p class="text-xs font-semibold text-brand-green tracking-wide">বাসা খুঁজুন ও সরাসরি কথা বলুন</p>
+                    </div>
+                </a>
+
+                <!-- Navigation Links -->
+                <nav id="publicNav" class="hidden md:flex items-center space-x-6 font-semibold text-gray-700">
+                    <a href="#home" class="text-brand-green hover:text-brand-green border-b-2 border-brand-green pb-1">হোম</a>
+                    <a href="#properties" class="hover:text-brand-green transition-colors">বাসাসমূহ</a>
+                    <a href="#how-it-works" class="hover:text-brand-green transition-colors">পদ্ধতি</a>
+                    <a href="#contact" class="hover:text-brand-green transition-colors">যোগাযোগ</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="toggleAdminPanel()" class="p-2.5 text-xs font-bold text-gray-400 hover:text-brand-navy rounded-xl transition-all" title="অ্যাডমিন প্যানেল">
+                        <i class="fa-solid fa-user-lock text-lg"></i>
+                    </button>
+
+                    <button onclick="openUnlockModal()" class="px-4 py-2.5 text-xs font-bold text-white bg-brand-bkash hover:opacity-90 rounded-xl shadow transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-unlock-keyhole"></i>
+                        <span><span id="headerFeeText">৳১০০</span> দিয়ে আনলক</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PUBLIC PORTAL VIEW -->
+    <div id="publicPortalView" class="flex-grow">
+        <!-- Hero Section -->
+        <section id="home" class="hero-bg relative text-white py-14 lg:py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-flex items-center gap-2 bg-emerald-500/20 text-brand-green px-3.5 py-1.5 rounded-full border border-brand-green/30 text-xs font-bold backdrop-blur-md">
+                            <span class="w-2 h-2 rounded-full bg-brand-green animate-ping"></span>
+                            ফেনীর বিশ্বস্ত অনলাইন বাসা ভাড়া প্ল্যাটফর্ম
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+                            আপনার স্বপ্নের বাসা <br/><span class="text-brand-green">সরাসরি মালিকের সাথে বুকিং করুন</span>
+                        </h1>
+                        <p class="text-base sm:text-lg text-gray-200 max-w-xl leading-relaxed">
+                            কোনো মধ্যস্থতাকারী ছাড়াই যেকোনো বাসার মালিকের মোবাইল নম্বর ও সুনির্দিষ্ট ঠিকানা দেখুন মাত্র <b class="text-brand-green text-xl"><span class="dynamicFeeDisplay">৳ ১০০</span></b> টাকায়!
+                        </p>
+
+                        <div class="pt-4 grid grid-cols-3 gap-4 border-t border-white/10 text-center sm:text-left">
+                            <div>
+                                <h3 class="text-2xl font-black text-brand-green" id="totalPropertiesCountDisplay">০</h3>
+                                <p class="text-xs text-gray-300">যাচাইকৃত বাসা</p>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-brand-green">১০০%</h3>
+                                <p class="text-xs text-gray-300">সরাসরি সংযোগ</p>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-brand-green">bKash</h3>
+                                <p class="text-xs text-gray-300">নিরাপদ পেমেন্ট</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Card -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-white rounded-2xl p-6 text-gray-800 shadow-2xl border border-gray-100">
+                            <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                                <h3 class="text-lg font-bold text-brand-navy">বাসা সার্চ করুন</h3>
+                                <span class="bg-emerald-100 text-brand-green px-2 py-0.5 rounded text-xs font-bold">ফেনী জেলা</span>
+                            </div>
+
+                            <form onsubmit="handlePublicSearch(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-600 mb-1">লোকেশন</label>
+                                    <select id="searchLocation" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-medium text-xs">
+                                        <option value="All">সকল এলাকা (All Locations)</option>
+                                        <option value="Feni Sadar">ফেনী সদর (Feni Sadar)</option>
+                                        <option value="Daganbhuiyan">দাগনভূঞা (Daganbhuiyan)</option>
+                                        <option value="Sonagazi">সোনাগাজী (Sonagazi)</option>
+                                        <option value="Parshuram">পরশুরাম (Parshuram)</option>
+                                        <option value="Chhagalnaiya">ছাগলনাইয়া (Chhagalnaiya)</option>
+                                        <option value="Fulgazi">ফুলগাজী (Fulgazi)</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-600 mb-1">বাসার ধরন</label>
+                                    <select id="searchCategory" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-medium text-xs">
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="w-full py-3 bg-brand-green hover:bg-brand-greenHover text-white font-bold rounded-xl transition-all shadow-md flex items-center justify-center space-x-2 text-sm">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <span>ফিল্টার প্রয়োগ করুন</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Category Pills -->
+        <section class="py-6 bg-white border-b border-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">ক্যাটাগরি ফিল্টার:</p>
+                <div id="publicCategoryPills" class="flex flex-wrap gap-2">
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties Grid Section -->
+        <section id="properties" class="py-12 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-brand-navy">ভাড়ার জন্য উপলব্ধ বাসা তালিকা</h2>
+                        <p class="text-xs text-gray-500 mt-1">পছন্দের বাসায় সরাসরি কল দিতে বিকাশ পেমেন্ট ট্রানজ্যাকশন আইডি সাবমিট করুন</p>
+                    </div>
+
+                    <div id="userUnlockStatusBadge" class="bg-amber-50 border border-amber-200 px-4 py-2 rounded-xl flex items-center gap-2">
+                        <i class="fa-solid fa-lock text-amber-600 text-sm"></i>
+                        <span class="text-xs font-bold text-amber-800">মালিকের নম্বর দেখতে <span class="dynamicFeeDisplay">৳ ১০০</span> পেমেন্ট প্রয়োজন</span>
+                    </div>
+                </div>
+
+                <div id="publicPropertiesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="py-14 bg-white border-y border-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <h2 class="text-2xl font-extrabold text-brand-navy">কীভাবে বাসা আনলক করবেন?</h2>
+                    <p class="text-xs text-gray-500 mt-1">সহজ ৩টি ধাপে সরাসরি মালিকের মোবাইল নম্বর ও ঠিকানা পান</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+                        <div class="w-12 h-12 bg-brand-navy text-brand-green font-black rounded-xl flex items-center justify-center text-xl mx-auto mb-3">১</div>
+                        <h3 class="font-bold text-brand-navy text-sm mb-1">bKash-এ টাকা পাঠান</h3>
+                        <p class="text-xs text-gray-500">বিকাশ অ্যাপ বা *247# দিয়ে আমাদের নির্ধারিত পার্সোনাল নম্বরে <span class="dynamicFeeDisplay">৳১০০</span> টাকা সেন্ড মানি করুন।</p>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+                        <div class="w-12 h-12 bg-brand-bkash text-white font-black rounded-xl flex items-center justify-center text-xl mx-auto mb-3">২</div>
+                        <h3 class="font-bold text-brand-navy text-sm mb-1">TrxID জমা দিন</h3>
+                        <p class="text-xs text-gray-500">বিকাশ থেকে প্রাপ্ত Transaction ID (TrxID) ও আপনার মোবাইল নম্বর আমাদের ফর্মে সাবমিট করুন।</p>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+                        <div class="w-12 h-12 bg-brand-green text-white font-black rounded-xl flex items-center justify-center text-xl mx-auto mb-3">৩</div>
+                        <h3 class="font-bold text-brand-navy text-sm mb-1">সরাসরি যোগাযোগ করুন</h3>
+                        <p class="text-xs text-gray-500">ট্রানজ্যাকশন নিশ্চিত হতেই ওয়েবসাইটের সকল বাসার মালিকের ফোন নম্বর ও সম্পূর্ণ ঠিকানা আনলক হয়ে যাবে।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ADMIN PORTAL VIEW -->
+    <div id="adminPortalView" class="hidden flex-grow bg-slate-100 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- SECURE ADMIN LOGIN FORM (NO HINTS / NO VISIBLE CREDS) -->
+            <div id="adminLoginForm" class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-xl border border-gray-200">
+                <div class="text-center mb-6">
+                    <div class="w-14 h-14 bg-brand-navy text-brand-green rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-brand-navy">অ্যাডমিন সিকিউরিটি অ্যাক্সেস</h2>
+                    <p class="text-xs text-gray-500 mt-1">ড্যাশবোর্ডে প্রবেশ করতে আপনার গোপনীয় এডমিন পিন দিন</p>
+                </div>
+
+                <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">এডমিন পাসওয়ার্ড / পিন</label>
+                        <input type="password" id="adminTrxPassword" required placeholder="পাসওয়ার্ড দিন" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-navy outline-none text-sm font-semibold">
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 bg-brand-navy text-white font-bold rounded-xl hover:bg-brand-navyDark transition-all shadow-md text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>ড্যাশবোর্ডে প্রবেশ করুন</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- AUTHENTICATED DASHBOARD CONTENT -->
+            <div id="adminDashboardContent" class="hidden space-y-8">
+                
+                <!-- Admin Bar -->
+                <div class="bg-brand-navy text-white p-6 rounded-3xl shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="bg-brand-green/20 text-brand-green text-xs font-extrabold px-3 py-1 rounded-full border border-brand-green/30">সুরক্ষিত অ্যাডমিন কন্ট্রোল</span>
+                        <h1 class="text-2xl font-extrabold mt-1">Feni House Rent সিস্টেম ড্যাশবোর্ড</h1>
+                        <p class="text-xs text-gray-300">সার্ভিস ফি, কন্টাক্ট লিঙ্ক, লিস্টিং ও পেমেন্ট ট্রানজ্যাকশন পরিচালনা করুন</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="switchView('public')" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold backdrop-blur-md">
+                            <i class="fa-solid fa-globe mr-1"></i> পাবলিক ওয়েবসাইট
+                        </button>
+                        <button onclick="adminLogout()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold shadow">
+                            <i class="fa-solid fa-right-from-bracket mr-1"></i> লগআউট
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STATS COUNTERS -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase">মোট বাসা লিস্টিং</p>
+                            <h3 id="statTotalListings" class="text-2xl font-black text-brand-navy mt-1">০</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-building"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase">পেন্ডিং পেমেন্ট</p>
+                            <h3 id="statPendingPayments" class="text-2xl font-black text-amber-600 mt-1">০</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase">অনুমোদিত ট্রানজ্যাকশন</p>
+                            <h3 id="statApprovedPayments" class="text-2xl font-black text-brand-green mt-1">০</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-brand-green flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase">মোট আয়</p>
+                            <h3 id="statTotalRevenue" class="text-2xl font-black text-brand-bkash mt-1">৳ ০০০</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-pink-50 text-brand-bkash flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SYSTEM SETTINGS & PASSWORD MANAGEMENT -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    <!-- Service & Contact Settings Form -->
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                            <h3 class="font-bold text-brand-navy flex items-center gap-2">
+                                <i class="fa-solid fa-sliders text-brand-green"></i>
+                                <span>সাইট কন্টাক্ট & পেমেন্ট সেটিংস</span>
+                            </h3>
+                            <span class="text-xs font-bold text-brand-green">Edit Links</span>
+                        </div>
+
+                        <form onsubmit="handleSaveServiceSettings(event)" class="space-y-3 text-xs">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-gray-600 mb-1">আনলক সার্ভিস ফি (টাকা)</label>
+                                    <input type="number" id="settingFeeInput" required class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-green outline-none font-bold">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-brand-bkash mb-1">bKash পার্সোনাল নম্বর</label>
+                                    <input type="text" id="settingBkashInput" placeholder="যেমন: 01712-345678" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg font-bold">
+                                </div>
+                            </div>
+
+                            <div class="border-t border-gray-100 pt-3 font-semibold text-gray-700">সোশ্যাল লিঙ্ক ও কন্টাক্ট তথ্য (ফুটারে দেখাবে):</div>
+
+                            <div>
+                                <label class="block font-bold text-gray-600 mb-1">অফিসিয়াল ঠিকানা</label>
+                                <input type="text" id="settingAddressInput" placeholder="যেমন: ফেনী সদর, ফেনী, বাংলাদেশ" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-gray-600 mb-1">অফিস হেল্পলাইন নম্বর</label>
+                                    <input type="text" id="settingHelpPhoneInput" placeholder="+8801700000000" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-gray-600 mb-1">অফিসিয়াল ইমেইল</label>
+                                    <input type="email" id="settingEmailInput" placeholder="info@fenihouserent.com" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-gray-600 mb-1"><i class="fa-brands fa-facebook text-blue-600 mr-1"></i> ফেসবুক পেজ লিঙ্ক</label>
+                                    <input type="url" id="settingFbInput" placeholder="https://facebook.com/..." class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-gray-600 mb-1"><i class="fa-brands fa-whatsapp text-emerald-600 mr-1"></i> হোয়াটসঅ্যাপ লিঙ্ক / নম্বর</label>
+                                    <input type="text" id="settingWaInput" placeholder="https://wa.me/88017..." class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-gray-600 mb-1"><i class="fa-brands fa-youtube text-red-600 mr-1"></i> ইউটিউব চ্যানেল লিঙ্ক</label>
+                                    <input type="url" id="settingYtInput" placeholder="https://youtube.com/..." class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-gray-600 mb-1"><i class="fa-brands fa-telegram text-sky-500 mr-1"></i> টেলিগ্রাম লিঙ্ক</label>
+                                    <input type="url" id="settingTgInput" placeholder="https://t.me/..." class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full py-2.5 bg-brand-green text-white font-bold rounded-xl hover:bg-brand-greenHover transition-all shadow mt-2">
+                                <i class="fa-solid fa-floppy-disk mr-1"></i> সেটিংস সেভ করুন
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Change Password & Categories Panel -->
+                    <div class="space-y-6">
+                        <!-- Security / Change Admin Password -->
+                        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-3">
+                            <h3 class="font-bold text-brand-navy text-sm flex items-center gap-2 pb-2 border-b border-gray-100">
+                                <i class="fa-solid fa-key text-amber-500"></i>
+                                <span>পাসওয়ার্ড পরিবর্তন (Change Admin Password)</span>
+                            </h3>
+
+                            <form onsubmit="handleChangeAdminPassword(event)" class="space-y-3 text-xs">
+                                <div>
+                                    <label class="block font-bold text-gray-600 mb-1">বর্তমান পিন/পাসওয়ার্ড</label>
+                                    <input type="password" id="currentPassInput" required placeholder="বর্তমান পাসওয়ার্ড দিন" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-gray-600 mb-1">নতুন পাসওয়ার্ড</label>
+                                    <input type="password" id="newPassInput" required placeholder="নতুন পাসওয়ার্ড দিন" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none">
+                                </div>
+                                <button type="submit" class="w-full py-2 bg-brand-navy text-white font-bold rounded-xl hover:bg-brand-navyDark transition-all">
+                                    পাসওয়ার্ড আপডেট করুন
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Categories Edit -->
+                        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-3">
+                            <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+                                <h3 class="font-bold text-brand-navy text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-list-check text-brand-navy"></i>
+                                    <span>ক্যাটাগরি সমূহ পরিবর্তন</span>
+                                </h3>
+                                <button onclick="addCategoryPrompt()" class="px-3 py-1 bg-brand-navy text-white text-xs font-bold rounded-lg">
+                                    + ক্যাটাগরি
+                                </button>
+                            </div>
+
+                            <div id="adminCategoryList" class="space-y-2 max-h-36 overflow-y-auto pr-1">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- PAYMENT VERIFICATION & APPROVAL TABLE -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-gray-100 gap-2">
+                        <div>
+                            <h3 class="font-bold text-brand-navy text-base flex items-center gap-2">
+                                <i class="fa-solid fa-money-bill-transfer text-brand-bkash"></i>
+                                <span>পেমেন্ট ভেরিফিকেশন ও ট্রানজ্যাকশন অনুমোদন (TrxID Panel)</span>
+                            </h3>
+                            <p class="text-xs text-gray-500">গ্রাহকদের জমাকৃত TrxID মিলিয়ে "অনুমোদন" বাটনে ক্লিক করুন</p>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-50 text-gray-600 font-bold uppercase border-b border-gray-200">
+                                <tr>
+                                    <th class="p-3">তারিখ</th>
+                                    <th class="p-3">গ্রাহক ফোন</th>
+                                    <th class="p-3">মেথড</th>
+                                    <th class="p-3">ট্রানজ্যাকশন আইডি (TrxID)</th>
+                                    <th class="p-3">পরিমাণ</th>
+                                    <th class="p-3">স্ট্যাটাস</th>
+                                    <th class="p-3 text-right">অ্যাকশন</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminPaymentsTableBody" class="divide-y divide-gray-100">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- HOUSE LISTING MANAGEMENT PANEL -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-gray-100 gap-2">
+                        <div>
+                            <h3 class="font-bold text-brand-navy text-base flex items-center gap-2">
+                                <i class="fa-solid fa-house-medical text-brand-green"></i>
+                                <span>বাসা লিস্টিং ম্যানেজমেন্ট (Add/Edit Properties)</span>
+                            </h3>
+                            <p class="text-xs text-gray-500">নতুন ভাড়ার বাসা যুক্ত বা এডিট করুন</p>
+                        </div>
+                        <button onclick="openPropertyModal()" class="px-4 py-2 bg-brand-green text-white font-bold rounded-xl text-xs hover:bg-brand-greenHover transition-all shadow flex items-center gap-1.5">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>নতুন বাসা যুক্ত করুন</span>
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-50 text-gray-600 font-bold uppercase border-b border-gray-200">
+                                <tr>
+                                    <th class="p-3">ছবি & নাম</th>
+                                    <th class="p-3">লোকেশন</th>
+                                    <th class="p-3">ক্যাটাগরি</th>
+                                    <th class="p-3">ভাড়া (Tk)</th>
+                                    <th class="p-3">মালিকের নাম ও ফোন</th>
+                                    <th class="p-3 text-right">অ্যাকশন</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminPropertiesTableBody" class="divide-y divide-gray-100">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER WITH DYNAMIC LINKS -->
+    <footer id="contact" class="bg-brand-navyDark text-gray-300 pt-12 pb-6 border-t border-white/5 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-white/10 text-xs">
+                <!-- Col 1: Brand -->
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <div class="bg-brand-navy border border-brand-green/30 p-2 rounded-xl text-brand-green">
+                            <i class="fa-solid fa-house-chimney text-lg"></i>
+                        </div>
+                        <span class="text-lg font-extrabold text-white tracking-tight">Feni House rent</span>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        ফেনী শহরের নির্ভরযোগ্য অনলাইন বাসা ভাড়া সেবামাধ্যম। সরাসরি মালিকের সাথে সহজে ও নিরাপদে বাসা খুঁজে নিন।
+                    </p>
+                    <!-- Social Links -->
+                    <div id="footerSocialIcons" class="flex items-center space-x-2 pt-2">
+                        <!-- Rendered via JS -->
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h4 class="font-bold text-white text-sm mb-3">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-brand-green">Home</a></li>
+                        <li><a href="#properties" class="hover:text-brand-green">Properties</a></li>
+                        <li><a href="#how-it-works" class="hover:text-brand-green">How It Works</a></li>
+                        <li><a href="#contact" class="hover:text-brand-green">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Our Services -->
+                <div>
+                    <h4 class="font-bold text-white text-sm mb-3">Our Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><span>House Rent</span></li>
+                        <li><span>Room Rent</span></li>
+                        <li><span>Family House</span></li>
+                        <li><span>Apartment</span></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact Us -->
+                <div>
+                    <h4 class="font-bold text-white text-sm mb-3">Contact Us</h4>
+                    <ul class="space-y-2.5 text-gray-400">
+                        <li id="footerAddressText" class="flex items-start gap-2">
+                            <i class="fa-solid fa-location-dot text-brand-green mt-0.5"></i>
+                            <span>ফেনী, বাংলাদেশ</span>
+                        </li>
+                        <li id="footerPhoneText" class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-brand-green"></i>
+                            <span>যোগাযোগের জন্য অ্যাডমিন সেটিংসে আপডেট করুন</span>
+                        </li>
+                        <li id="footerEmailText" class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-brand-green"></i>
+                            <span>info@fenihouserent.com</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-4 pt-3 border-t border-white/10">
+                        <p class="text-[11px] font-bold text-gray-400 mb-1.5">We Accept:</p>
+                        <span class="inline-flex items-center gap-1.5 bg-brand-bkash text-white font-extrabold px-3 py-1 rounded-lg text-xs shadow">
+                            <i class="fa-solid fa-mobile-screen"></i> bKash Only
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+                <p>© 2026 Feni House rent. All Rights Reserved.</p>
+                <div class="space-x-4">
+                    <a href="#" class="hover:underline">Privacy Policy</a>
+                    <a href="#" class="hover:underline">Terms & Conditions</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- BKASH SUBMISSION MODAL -->
+    <div id="unlockModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 relative shadow-2xl border border-gray-100">
+            <button onclick="closeUnlockModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-5">
+                <div class="w-12 h-12 bg-pink-100 text-brand-bkash rounded-2xl flex items-center justify-center text-2xl mx-auto mb-2">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                </div>
+                <h3 class="text-xl font-bold text-brand-navy">bKash পেমেন্ট করে নম্বর আনলক করুন</h3>
+                <p class="text-xs text-gray-500 mt-0.5">নিচের বিকাশ পার্সোনাল নম্বরে সেন্ড মানি করুন</p>
+            </div>
+
+            <div class="bg-pink-50 border border-pink-200 p-3.5 rounded-2xl space-y-2 mb-4">
+                <div class="flex justify-between items-center text-xs font-bold text-brand-navy">
+                    <span>সার্ভিস ফি:</span>
+                    <span class="text-base text-brand-bkash dynamicFeeDisplay">৳ ১০০</span>
+                </div>
+                <div class="flex justify-between items-center pt-2 border-t border-pink-100">
+                    <span class="text-xs font-bold text-gray-700"><i class="fa-solid fa-phone text-brand-bkash mr-1"></i> bKash Personal:</span>
+                    <div class="flex items-center gap-2">
+                        <span id="bkashNumberModal" class="font-mono font-bold text-sm text-brand-navy">--</span>
+                        <button onclick="copyBkashNumber()" class="px-2 py-1 bg-brand-bkash text-white text-[10px] font-bold rounded hover:opacity-90">
+                            কপি
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Submission Form -->
+            <form onsubmit="handleUserPaymentSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 mb-1">আপনার মোবাইল নম্বর</label>
+                    <input type="tel" id="userPayPhone" required placeholder="017XXXXXXXX" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none text-xs font-semibold">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 mb-1">বিকাশ ট্রানজ্যাকশন আইডি (TrxID)</label>
+                    <input type="text" id="userPayTrxId" required placeholder="উদাহরণ: 9M87A6K5L" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none text-xs font-mono uppercase font-bold text-brand-navy">
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-brand-bkash hover:opacity-90 text-white font-bold rounded-xl transition-all shadow-md text-xs flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>TrxID সাবমিট করুন</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PROPERTY ADD/EDIT MODAL -->
+    <div id="propertyModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closePropertyModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 id="propertyModalTitle" class="text-xl font-bold text-brand-navy mb-4 pb-2 border-b border-gray-100">নতুন বাসা লিস্টিং যুক্ত করুন</h3>
+
+            <form onsubmit="handleSaveProperty(event)" class="space-y-4 text-xs">
+                <input type="hidden" id="editPropertyId" value="">
+
+                <div>
+                    <label class="block font-bold text-gray-700 mb-1">বাসার শিরোনাম (Title)</label>
+                    <input type="text" id="propTitle" required placeholder="উদাহরণ: 2 BHK ফ্যামিলি বাসা" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">ক্যাটাগরি</label>
+                        <select id="propCategory" required class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">লোকেশন/এলাকা</label>
+                        <select id="propLocation" required class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                            <option value="Feni Sadar">ফেনী সদর (Feni Sadar)</option>
+                            <option value="Daganbhuiyan">দাগনভূঞা (Daganbhuiyan)</option>
+                            <option value="Sonagazi">সোনাগাজী (Sonagazi)</option>
+                            <option value="Parshuram">পরশুরাম (Parshuram)</option>
+                            <option value="Chhagalnaiya">ছাগলনাইয়া (Chhagalnaiya)</option>
+                            <option value="Fulgazi">ফুলগাজী (Fulgazi)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-gray-700 mb-1">সঠিক বিস্তারিত ঠিকানা (Exact Address)</label>
+                    <input type="text" id="propExactAddress" required placeholder="উদাহরণ: বাসা ৪৫, রোড ৩, ট্রাঙ্ক রোড, ফেনী সদর" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">মাসিক ভাড়া (টাকা)</label>
+                        <input type="number" id="propPrice" required placeholder="12000" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">স্কয়ার ফিট (Sqft)</label>
+                        <input type="number" id="propSqft" required placeholder="1200" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">বেডরুম সংখ্যা</label>
+                        <input type="number" id="propBeds" required placeholder="2" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">বাথরুম সংখ্যা</label>
+                        <input type="number" id="propBaths" required placeholder="2" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">মালিকের নাম</label>
+                        <input type="text" id="propOwnerName" required placeholder="মোঃ জহিরুল হক" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">মালিকের ফোন নম্বর</label>
+                        <input type="tel" id="propOwnerPhone" required placeholder="01711000000" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-gray-700 mb-1">ছবি URL</label>
+                    <input type="url" id="propImage" required placeholder="https://images.unsplash.com/..." class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-green outline-none font-semibold">
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-brand-green hover:bg-brand-greenHover text-white font-bold rounded-xl transition-all shadow-md text-xs mt-2">
+                    <i class="fa-solid fa-floppy-disk mr-1"></i> বাসা লিস্টিং সেভ করুন
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-brand-navy text-white px-5 py-3 rounded-2xl shadow-2xl z-50 hidden flex items-center space-x-3 border border-brand-green/30">
+        <i class="fa-solid fa-circle-check text-brand-green text-xl"></i>
+        <span id="toastMsg" class="text-xs font-semibold">বার্তা</span>
+    </div>
+
+    <script>
+        // DEFAULT INITIAL DATA STRUCTURES
+        const defaultSettings = {
+            unlockFee: 100,
+            bkashNumber: '',
+            adminPass: '123456', // Default secret password (stored securely in browser)
+            address: '',
+            helpPhone: '',
+            email: '',
+            fbLink: '',
+            waLink: '',
+            ytLink: '',
+            tgLink: ''
+        };
+
+        const defaultCategories = ['Single Room', 'Family House', 'Apartment', 'Flat', 'Shared Room'];
+
+        const defaultProperties = [
+            {
+                id: 101,
+                title: '2 BHK ফ্যামিলি বাসা',
+                category: 'Family House',
+                location: 'Feni Sadar',
+                exactAddress: 'বাসা ৪২, লেন-২, ট্রাঙ্ক রোড, ফেনী সদর',
+                price: 12000,
+                sqft: 1200,
+                beds: 2,
+                baths: 2,
+                ownerName: 'আলহাজ্ব সফিকুল ইসলাম',
+                ownerPhone: '01711-234567',
+                image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 102,
+                title: '১ রুমের ব্যাচেলর / সিঙ্গেল রুম',
+                category: 'Single Room',
+                location: 'Daganbhuiyan',
+                exactAddress: 'হোসেন ম্যানশন, জিরো পয়েন্ট, দাগনভূঞা',
+                price: 5500,
+                sqft: 450,
+                beds: 1,
+                baths: 1,
+                ownerName: 'মাওলানা ইউনুস আলী',
+                ownerPhone: '01819-876543',
+                image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 103,
+                title: '3 BHK এক্সক্লুসিভ ফ্ল্যাট',
+                category: 'Apartment',
+                location: 'Feni Sadar',
+                exactAddress: 'গ্রিন টাওয়ার, বি-ব্লক, রামপুর, ফেনী সদর',
+                price: 18000,
+                sqft: 1750,
+                beds: 3,
+                baths: 3,
+                ownerName: 'ইঞ্জিনিয়ার জহিরুল হক',
+                ownerPhone: '01715-998877',
+                image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80'
+            }
+        ];
+
+        const defaultPayments = [];
+
+        // LOCAL STORAGE LOADERS
+        let settings = JSON.parse(localStorage.getItem('feni_settings')) || defaultSettings;
+        let categories = JSON.parse(localStorage.getItem('feni_categories')) || defaultCategories;
+        let properties = JSON.parse(localStorage.getItem('feni_properties')) || defaultProperties;
+        let payments = JSON.parse(localStorage.getItem('feni_payments')) || defaultPayments;
+
+        let isAdminLoggedIn = false;
+        let currentUserSubmittedTrx = localStorage.getItem('feni_user_approved_trx') || null;
+
+        // PERSISTENCE HELPERS
+        function saveSettings() { localStorage.setItem('feni_settings', JSON.stringify(settings)); }
+        function saveCategories() { localStorage.setItem('feni_categories', JSON.stringify(categories)); }
+        function saveProperties() { localStorage.setItem('feni_properties', JSON.stringify(properties)); }
+        function savePayments() { localStorage.setItem('feni_payments', JSON.stringify(payments)); }
+
+        // UNLOCK CHECKER
+        function isUserUnlocked() {
+            if (!currentUserSubmittedTrx) return false;
+            const match = payments.find(p => p.trxId.toUpperCase() === currentUserSubmittedTrx.toUpperCase() && p.status === 'Approved');
+            return !!match;
+        }
+
+        // VIEW SWITCHER
+        function switchView(view) {
+            const publicView = document.getElementById('publicPortalView');
+            const adminView = document.getElementById('adminPortalView');
+            const publicNav = document.getElementById('publicNav');
+
+            if (view === 'admin') {
+                publicView.classList.add('hidden');
+                adminView.classList.remove('hidden');
+                publicNav.classList.add('hidden');
+                renderAdminDashboard();
+            } else {
+                publicView.classList.remove('hidden');
+                adminView.classList.add('hidden');
+                publicNav.classList.remove('hidden');
+                renderPublicPortal();
+            }
+        }
+
+        function toggleAdminPanel() {
+            const isPublicHidden = document.getElementById('publicPortalView').classList.contains('hidden');
+            switchView(isPublicHidden ? 'public' : 'admin');
+        }
+
+        // PUBLIC PORTAL RENDERER
+        function renderPublicPortal() {
+            // Dynamic Fee
+            document.querySelectorAll('.dynamicFeeDisplay').forEach(el => {
+                el.textContent = `৳ ${settings.unlockFee}`;
+            });
+            document.getElementById('headerFeeText').textContent = `৳${settings.unlockFee}`;
+
+            // Total Properties
+            document.getElementById('totalPropertiesCountDisplay').textContent = properties.length;
+
+            // Categories Filter
+            const categorySelect = document.getElementById('searchCategory');
+            categorySelect.innerHTML = '<option value="All">সব ক্যাটাগরি</option>';
+            categories.forEach(cat => {
+                categorySelect.innerHTML += `<option value="${cat}">${cat}</option>`;
+            });
+
+            const pillsContainer = document.getElementById('publicCategoryPills');
+            pillsContainer.innerHTML = `
+                <button onclick="filterByCat('All')" class="px-3 py-1.5 bg-brand-navy text-white text-xs font-bold rounded-xl">সবগুলো</button>
+            `;
+            categories.forEach(cat => {
+                pillsContainer.innerHTML += `
+                    <button onclick="filterByCat('${cat}')" class="px-3 py-1.5 bg-slate-100 hover:bg-brand-green hover:text-white text-gray-700 text-xs font-bold rounded-xl transition-all">${cat}</button>
+                `;
+            });
+
+            // Footer Contact Links Rendering
+            const socialBox = document.getElementById('footerSocialIcons');
+            socialBox.innerHTML = '';
+            if (settings.fbLink) socialBox.innerHTML += `<a href="${settings.fbLink}" target="_blank" class="w-7 h-7 bg-white/10 hover:bg-blue-600 text-white rounded-lg flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>`;
+            if (settings.waLink) socialBox.innerHTML += `<a href="${settings.waLink.startsWith('http') ? settings.waLink : 'https://wa.me/' + settings.waLink}" target="_blank" class="w-7 h-7 bg-white/10 hover:bg-emerald-600 text-white rounded-lg flex items-center justify-center transition-colors"><i class="fa-brands fa-whatsapp"></i></a>`;
+            if (settings.ytLink) socialBox.innerHTML += `<a href="${settings.ytLink}" target="_blank" class="w-7 h-7 bg-white/10 hover:bg-red-600 text-white rounded-lg flex items-center justify-center transition-colors"><i class="fa-brands fa-youtube"></i></a>`;
+            if (settings.tgLink) socialBox.innerHTML += `<a href="${settings.tgLink}" target="_blank" class="w-7 h-7 bg-white/10 hover:bg-sky-500 text-white rounded-lg flex items-center justify-center transition-colors"><i class="fa-brands fa-telegram"></i></a>`;
+
+            if (settings.address) document.getElementById('footerAddressText').querySelector('span').textContent = settings.address;
+            if (settings.helpPhone) document.getElementById('footerPhoneText').querySelector('span').textContent = settings.helpPhone;
+            if (settings.email) document.getElementById('footerEmailText').querySelector('span').textContent = settings.email;
+
+            // Render Listings
+            renderPublicPropertiesList(properties);
+
+            // Badge
+            const unlocked = isUserUnlocked();
+            const badge = document.getElementById('userUnlockStatusBadge');
+            if (unlocked) {
+                badge.className = "bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-xl flex items-center gap-2";
+                badge.innerHTML = `
+                    <i class="fa-solid fa-circle-check text-brand-green text-sm"></i>
+                    <span class="text-xs font-bold text-emerald-800">পেমেন্ট অনুমোদিত! বাসার তথ্য আনলকড</span>
+                `;
+            } else {
+                badge.className = "bg-amber-50 border border-amber-200 px-4 py-2 rounded-xl flex items-center gap-2";
+                badge.innerHTML = `
+                    <i class="fa-solid fa-lock text-amber-600 text-sm"></i>
+                    <span class="text-xs font-bold text-amber-800">মালিকের মোবাইল নম্বর দেখতে <span class="dynamicFeeDisplay">৳ ${settings.unlockFee}</span> পেমেন্ট প্রয়োজন</span>
+                `;
+            }
+        }
+
+        function renderPublicPropertiesList(list) {
+            const container = document.getElementById('publicPropertiesContainer');
+            container.innerHTML = '';
+
+            if (list.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-12 text-center bg-white rounded-2xl border border-dashed border-gray-300">
+                        <i class="fa-solid fa-house-circle-xmark text-4xl text-gray-300 mb-2"></i>
+                        <h4 class="font-bold text-gray-700">কোনো বাসা পাওয়া যায়নি</h4>
+                    </div>
+                `;
+                return;
+            }
+
+            const unlocked = isUserUnlocked();
+
+            list.forEach(prop => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between";
+
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-48 bg-gray-100 overflow-hidden">
+                            <img src="${prop.image}" alt="${prop.title}" class="w-full h-full object-cover">
+                            <div class="absolute bottom-3 left-3 bg-brand-navy/90 text-white text-xs font-extrabold px-3 py-1 rounded-lg">
+                                ৳ ${prop.price.toLocaleString()} / মাস
+                            </div>
+                            <div class="absolute top-3 right-3">
+                                ${unlocked ? `
+                                    <span class="bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow">
+                                        <i class="fa-solid fa-check"></i> আনলকড
+                                    </span>
+                                ` : `
+                                    <span class="bg-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow">
+                                        <i class="fa-solid fa-lock"></i> লক করা
+                                    </span>
+                                `}
+                            </div>
+                        </div>
+
+                        <div class="p-4 space-y-2">
+                            <span class="text-[10px] font-bold text-brand-green bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">${prop.category}</span>
+                            <h3 class="font-bold text-gray-900 text-sm leading-snug">${prop.title}</h3>
+                            <p class="text-xs text-gray-500"><i class="fa-solid fa-location-dot text-brand-green"></i> ${prop.location}</p>
+
+                            <div class="flex justify-between text-[11px] text-gray-600 bg-slate-50 p-2 rounded-lg border border-slate-100 font-semibold">
+                                <span><i class="fa-solid fa-bed text-brand-navy"></i> ${prop.beds} বেড</span>
+                                <span><i class="fa-solid fa-bath text-brand-navy"></i> ${prop.baths} বাথ</span>
+                                <span><i class="fa-solid fa-ruler-combined text-brand-navy"></i> ${prop.sqft} sqft</span>
+                            </div>
+
+                            ${unlocked ? `
+                                <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs space-y-1">
+                                    <p class="font-bold text-emerald-900"><i class="fa-solid fa-user-check mr-1"></i> মালিক: ${prop.ownerName}</p>
+                                    <p class="font-bold text-brand-navy text-sm"><i class="fa-solid fa-phone text-brand-green mr-1"></i> <a href="tel:${prop.ownerPhone}" class="underline">${prop.ownerPhone}</a></p>
+                                    <p class="text-gray-600 text-[11px]"><i class="fa-solid fa-map-pin mr-1"></i> ${prop.exactAddress}</p>
+                                </div>
+                            ` : `
+                                <div class="relative bg-gray-50 border border-dashed border-gray-300 p-3 rounded-xl text-xs overflow-hidden">
+                                    <div class="blur-locked space-y-0.5">
+                                        <p class="font-bold">মালিক: মোঃ জহিরুল ইসলাম</p>
+                                        <p class="font-bold">ফোন: 01700-000000</p>
+                                        <p>ঠিকানা: ট্রাঙ্ক রোড, ফেনী সদর</p>
+                                    </div>
+                                    <div class="absolute inset-0 bg-white/70 backdrop-blur-[2px] flex items-center justify-center text-center p-2">
+                                        <p class="text-[11px] font-bold text-amber-800"><i class="fa-solid fa-lock mr-1"></i> ৳${settings.unlockFee} দিয়ে TrxID জমা দিন</p>
+                                    </div>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+
+                    <div class="p-4 pt-0">
+                        ${unlocked ? `
+                            <a href="tel:${prop.ownerPhone}" class="w-full py-2.5 bg-brand-green hover:bg-brand-greenHover text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow">
+                                <i class="fa-solid fa-phone"></i>
+                                <span>মালিককে কল দিন</span>
+                            </a>
+                        ` : `
+                            <button onclick="openUnlockModal()" class="w-full py-2.5 bg-brand-bkash hover:opacity-90 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow">
+                                <i class="fa-solid fa-unlock-keyhole"></i>
+                                <span>৳${settings.unlockFee} দিয়ে আনলক করুন</span>
+                            </button>
+                        `}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // BKASH USER SUBMISSION
+        function openUnlockModal() {
+            document.getElementById('bkashNumberModal').textContent = settings.bkashNumber || 'নম্বর যুক্ত করা হয়নি';
+            document.getElementById('unlockModal').classList.remove('hidden');
+        }
+
+        function closeUnlockModal() {
+            document.getElementById('unlockModal').classList.add('hidden');
+        }
+
+        function copyBkashNumber() {
+            if (!settings.bkashNumber) {
+                showToast("নম্বরটি যুক্ত করা হয়নি");
+                return;
+            }
+            navigator.clipboard.writeText(settings.bkashNumber);
+            showToast("bKash নম্বর কপি হয়েছে!");
+        }
+
+        function handleUserPaymentSubmit(e) {
+            e.preventDefault();
+            const phone = document.getElementById('userPayPhone').value;
+            const trxId = document.getElementById('userPayTrxId').value.trim().toUpperCase();
+
+            if (!trxId) {
+                showToast("সঠিক Transaction ID দিন!");
+                return;
+            }
+
+            const existing = payments.find(p => p.trxId === trxId);
+            if (existing) {
+                if (existing.status === 'Approved') {
+                    currentUserSubmittedTrx = trxId;
+                    localStorage.setItem('feni_user_approved_trx', trxId);
+                    showToast("🎉 আপনার TrxID অনুমোদিত! বাসার তথ্য আনলক হয়েছে।");
+                    closeUnlockModal();
+                    renderPublicPortal();
+                    return;
+                } else {
+                    showToast("⏳ এই TrxID পেমেন্টটি বর্তমানে এডমিন পর্যালোচনায় রয়েছে।");
+                    closeUnlockModal();
+                    return;
+                }
+            }
+
+            const newPayment = {
+                id: 'PAY-' + (payments.length + 1),
+                phone: phone,
+                method: 'bKash',
+                trxId: trxId,
+                amount: settings.unlockFee,
+                date: new Date().toLocaleString('en-US', { hour12: true }),
+                status: 'Pending'
+            };
+
+            payments.unshift(newPayment);
+            savePayments();
+
+            currentUserSubmittedTrx = trxId;
+            localStorage.setItem('feni_user_approved_trx', trxId);
+
+            closeUnlockModal();
+            showToast("✅ TrxID সাবমিট হয়েছে! এডমিন অনুমোদন করলে তথ্য আনলক হবে।");
+            renderPublicPortal();
+        }
+
+        // ADMIN AUTHENTICATION
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('adminTrxPassword').value;
+
+            const storedPass = settings.adminPass || '123456';
+
+            if (pass === storedPass) {
+                isAdminLoggedIn = true;
+                document.getElementById('adminTrxPassword').value = '';
+                showToast("অ্যাডমিন লগইন সফল হয়েছে!");
+                renderAdminDashboard();
+            } else {
+                showToast("পাসওয়ার্ড ভুল হয়েছে!");
+            }
+        }
+
+        function adminLogout() {
+            isAdminLoggedIn = false;
+            renderAdminDashboard();
+            showToast("লগআউট সম্পন্ন হয়েছে।");
+        }
+
+        function handleChangeAdminPassword(e) {
+            e.preventDefault();
+            const curr = document.getElementById('currentPassInput').value;
+            const next = document.getElementById('newPassInput').value;
+
+            if (curr !== (settings.adminPass || '123456')) {
+                showToast("বর্তমান পাসওয়ার্ড সঠিক নয়!");
+                return;
+            }
+
+            if (!next || next.length < 4) {
+                showToast("নতুন পাসওয়ার্ড অন্তত ৪ অক্ষরের দিন!");
+                return;
+            }
+
+            settings.adminPass = next;
+            saveSettings();
+
+            document.getElementById('currentPassInput').value = '';
+            document.getElementById('newPassInput').value = '';
+
+            showToast("পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে!");
+        }
+
+        // ADMIN DASHBOARD RENDERER
+        function renderAdminDashboard() {
+            const loginBox = document.getElementById('adminLoginForm');
+            const contentBox = document.getElementById('adminDashboardContent');
+
+            if (!isAdminLoggedIn) {
+                loginBox.classList.remove('hidden');
+                contentBox.classList.add('hidden');
+                return;
+            }
+
+            loginBox.classList.add('hidden');
+            contentBox.classList.remove('hidden');
+
+            // Render Stats
+            document.getElementById('statTotalListings').textContent = properties.length;
+            const pending = payments.filter(p => p.status === 'Pending').length;
+            const approved = payments.filter(p => p.status === 'Approved').length;
+            const revenue = payments.filter(p => p.status === 'Approved').reduce((acc, curr) => acc + Number(curr.amount), 0);
+
+            document.getElementById('statPendingPayments').textContent = pending;
+            document.getElementById('statApprovedPayments').textContent = approved;
+            document.getElementById('statTotalRevenue').textContent = `৳ ${revenue.toLocaleString()}`;
+
+            // Settings Inputs
+            document.getElementById('settingFeeInput').value = settings.unlockFee;
+            document.getElementById('settingBkashInput').value = settings.bkashNumber || '';
+            document.getElementById('settingAddressInput').value = settings.address || '';
+            document.getElementById('settingHelpPhoneInput').value = settings.helpPhone || '';
+            document.getElementById('settingEmailInput').value = settings.email || '';
+            document.getElementById('settingFbInput').value = settings.fbLink || '';
+            document.getElementById('settingWaInput').value = settings.waLink || '';
+            document.getElementById('settingYtInput').value = settings.ytLink || '';
+            document.getElementById('settingTgInput').value = settings.tgLink || '';
+
+            renderAdminCategoryList();
+            renderAdminPaymentsTable();
+            renderAdminPropertiesTable();
+        }
+
+        function renderAdminCategoryList() {
+            const list = document.getElementById('adminCategoryList');
+            list.innerHTML = '';
+            categories.forEach((cat, index) => {
+                list.innerHTML += `
+                    <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200 text-xs">
+                        <span class="font-bold text-gray-800">${cat}</span>
+                        <div class="space-x-1">
+                            <button onclick="editCategory(${index})" class="text-blue-600 hover:underline font-bold px-1">এডিট</button>
+                            <button onclick="deleteCategory(${index})" class="text-red-600 hover:underline font-bold px-1">মুছুন</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function handleSaveServiceSettings(e) {
+            e.preventDefault();
+            settings.unlockFee = Number(document.getElementById('settingFeeInput').value);
+            settings.bkashNumber = document.getElementById('settingBkashInput').value;
+            settings.address = document.getElementById('settingAddressInput').value;
+            settings.helpPhone = document.getElementById('settingHelpPhoneInput').value;
+            settings.email = document.getElementById('settingEmailInput').value;
+            settings.fbLink = document.getElementById('settingFbInput').value;
+            settings.waLink = document.getElementById('settingWaInput').value;
+            settings.ytLink = document.getElementById('settingYtInput').value;
+            settings.tgLink = document.getElementById('settingTgInput').value;
+
+            saveSettings();
+            showToast("সেটিংস সেভ হয়েছে!");
+            renderAdminDashboard();
+        }
+
+        function addCategoryPrompt() {
+            const name = prompt("নতুন ক্যাটাগরির নাম লিখুন:");
+            if (name && name.trim()) {
+                categories.push(name.trim());
+                saveCategories();
+                renderAdminDashboard();
+                showToast("নতুন ক্যাটাগরি যুক্ত করা হয়েছে!");
+            }
+        }
+
+        function editCategory(index) {
+            const current = categories[index];
+            const updated = prompt("ক্যাটাগরি নাম পরিবর্তন করুন:", current);
+            if (updated && updated.trim()) {
+                categories[index] = updated.trim();
+                saveCategories();
+                renderAdminDashboard();
+                showToast("ক্যাটাগরি আপডেট করা হয়েছে!");
+            }
+        }
+
+        function deleteCategory(index) {
+            if (confirm("আপনি কি নিশ্চিত এই ক্যাটাগরি মুছে ফেলতে চান?")) {
+                categories.splice(index, 1);
+                saveCategories();
+                renderAdminDashboard();
+                showToast("ক্যাটাগরি মোছা হয়েছে।");
+            }
+        }
+
+        // PAYMENTS APPROVAL TABLE
+        function renderAdminPaymentsTable() {
+            const tbody = document.getElementById('adminPaymentsTableBody');
+            tbody.innerHTML = '';
+
+            if (payments.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-gray-400">কোনো পেমেন্ট তথ্য নেই</td></tr>`;
+                return;
+            }
+
+            payments.forEach((pay) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+
+                let statusBadge = `<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">পেন্ডিং</span>`;
+                if (pay.status === 'Approved') {
+                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">অনুমোদিত</span>`;
+                } else if (pay.status === 'Rejected') {
+                    statusBadge = `<span class="bg-red-100 text-red-800 px-2 py-0.5 rounded font-bold">বাতিল</span>`;
+                }
+
+                tr.innerHTML = `
+                    <td class="p-3 text-gray-500">${pay.date}</td>
+                    <td class="p-3 font-bold">${pay.phone}</td>
+                    <td class="p-3 font-semibold text-brand-bkash"><i class="fa-solid fa-mobile-screen mr-1"></i> bKash</td>
+                    <td class="p-3 font-mono font-bold text-brand-navy">${pay.trxId}</td>
+                    <td class="p-3 font-bold">৳${pay.amount}</td>
+                    <td class="p-3">${statusBadge}</td>
+                    <td class="p-3 text-right space-x-1">
+                        ${pay.status === 'Pending' ? `
+                            <button onclick="updatePaymentStatus('${pay.trxId}', 'Approved')" class="px-2.5 py-1 bg-brand-green text-white font-bold rounded shadow hover:bg-brand-greenHover">
+                                অনুমোদন
+                            </button>
+                            <button onclick="updatePaymentStatus('${pay.trxId}', 'Rejected')" class="px-2.5 py-1 bg-red-600 text-white font-bold rounded shadow hover:bg-red-700">
+                                বাতিল
+                            </button>
+                        ` : `
+                            <button onclick="updatePaymentStatus('${pay.trxId}', 'Pending')" class="px-2 py-0.5 bg-gray-200 text-gray-700 font-bold rounded">
+                                রিসেট
+                            </button>
+                        `}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updatePaymentStatus(trxId, newStatus) {
+            const pay = payments.find(p => p.trxId === trxId);
+            if (pay) {
+                pay.status = newStatus;
+                savePayments();
+                renderAdminDashboard();
+                showToast(`TrxID ${trxId} স্ট্যাটাস: ${newStatus}`);
+            }
+        }
+
+        // PROPERTY MANAGEMENT
+        function renderAdminPropertiesTable() {
+            const tbody = document.getElementById('adminPropertiesTableBody');
+            tbody.innerHTML = '';
+
+            properties.forEach(prop => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+                tr.innerHTML = `
+                    <td class="p-3 flex items-center gap-2">
+                        <img src="${prop.image}" class="w-10 h-10 rounded-lg object-cover">
+                        <span class="font-bold text-gray-800">${prop.title}</span>
+                    </td>
+                    <td class="p-3">${prop.location}</td>
+                    <td class="p-3"><span class="bg-gray-100 px-2 py-0.5 rounded text-gray-700">${prop.category}</span></td>
+                    <td class="p-3 font-bold text-brand-green">৳${prop.price.toLocaleString()}</td>
+                    <td class="p-3">
+                        <p class="font-bold">${prop.ownerName}</p>
+                        <p class="text-gray-500">${prop.ownerPhone}</p>
+                    </td>
+                    <td class="p-3 text-right space-x-1">
+                        <button onclick="editPropertyModal(${prop.id})" class="px-2.5 py-1 bg-blue-600 text-white font-bold rounded hover:bg-blue-700">এডিট</button>
+                        <button onclick="deleteProperty(${prop.id})" class="px-2.5 py-1 bg-red-600 text-white font-bold rounded hover:bg-red-700">মুছুন</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openPropertyModal() {
+            document.getElementById('editPropertyId').value = '';
+            document.getElementById('propertyModalTitle').textContent = "নতুন বাসা লিস্টিং যুক্ত করুন";
+            
+            const catSelect = document.getElementById('propCategory');
+            catSelect.innerHTML = '';
+            categories.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
+
+            document.getElementById('propTitle').value = '';
+            document.getElementById('propExactAddress').value = '';
+            document.getElementById('propPrice').value = '';
+            document.getElementById('propSqft').value = '';
+            document.getElementById('propBeds').value = '';
+            document.getElementById('propBaths').value = '';
+            document.getElementById('propOwnerName').value = '';
+            document.getElementById('propOwnerPhone').value = '';
+            document.getElementById('propImage').value = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80';
+
+            document.getElementById('propertyModal').classList.remove('hidden');
+        }
+
+        function editPropertyModal(id) {
+            const prop = properties.find(p => p.id === id);
+            if (!prop) return;
+
+            openPropertyModal();
+            document.getElementById('editPropertyId').value = prop.id;
+            document.getElementById('propertyModalTitle').textContent = "বাসা লিস্টিং এডিট করুন";
+
+            document.getElementById('propTitle').value = prop.title;
+            document.getElementById('propCategory').value = prop.category;
+            document.getElementById('propLocation').value = prop.location;
+            document.getElementById('propExactAddress').value = prop.exactAddress;
+            document.getElementById('propPrice').value = prop.price;
+            document.getElementById('propSqft').value = prop.sqft;
+            document.getElementById('propBeds').value = prop.beds;
+            document.getElementById('propBaths').value = prop.baths;
+            document.getElementById('propOwnerName').value = prop.ownerName;
+            document.getElementById('propOwnerPhone').value = prop.ownerPhone;
+            document.getElementById('propImage').value = prop.image;
+        }
+
+        function closePropertyModal() {
+            document.getElementById('propertyModal').classList.add('hidden');
+        }
+
+        function handleSaveProperty(e) {
+            e.preventDefault();
+            const editId = document.getElementById('editPropertyId').value;
+
+            const newProp = {
+                id: editId ? Number(editId) : Date.now(),
+                title: document.getElementById('propTitle').value,
+                category: document.getElementById('propCategory').value,
+                location: document.getElementById('propLocation').value,
+                exactAddress: document.getElementById('propExactAddress').value,
+                price: Number(document.getElementById('propPrice').value),
+                sqft: Number(document.getElementById('propSqft').value),
+                beds: Number(document.getElementById('propBeds').value),
+                baths: Number(document.getElementById('propBaths').value),
+                ownerName: document.getElementById('propOwnerName').value,
+                ownerPhone: document.getElementById('propOwnerPhone').value,
+                image: document.getElementById('propImage').value
+            };
+
+            if (editId) {
+                const idx = properties.findIndex(p => p.id === Number(editId));
+                if (idx !== -1) properties[idx] = newProp;
+            } else {
+                properties.unshift(newProp);
+            }
+
+            saveProperties();
+            closePropertyModal();
+            renderAdminDashboard();
+            showToast("বাসা লিস্টিং সেভ হয়েছে!");
+        }
+
+        function deleteProperty(id) {
+            if (confirm("আপনি কি নিশ্চিত এই লিস্টিংটি মুছে ফেলতে চান?")) {
+                properties = properties.filter(p => p.id !== id);
+                saveProperties();
+                renderAdminDashboard();
+                showToast("বাসা লিস্টিং মোছা হয়েছে।");
+            }
+        }
+
+        // PUBLIC SEARCH
+        function handlePublicSearch(e) {
+            e.preventDefault();
+            const loc = document.getElementById('searchLocation').value;
+            const cat = document.getElementById('searchCategory').value;
+
+            const filtered = properties.filter(p => {
+                const matchLoc = loc === 'All' || p.location === loc;
+                const matchCat = cat === 'All' || p.category === cat;
+                return matchLoc && matchCat;
+            });
+
+            renderPublicPropertiesList(filtered);
+            document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function filterByCat(cat) {
+            if (cat === 'All') {
+                renderPublicPropertiesList(properties);
+            } else {
+                const filtered = properties.filter(p => p.category === cat);
+                renderPublicPropertiesList(filtered);
+            }
+            document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // UTILITY TOAST
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 4000);
+        }
+
+        window.onload = function() {
+            renderPublicPortal();
+        };
+    </script>
+</body>
+</html>
